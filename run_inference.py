@@ -258,7 +258,7 @@ if __name__ == '__main__':
     from omegaconf import OmegaConf
     import os 
     DConf = OmegaConf.load('./configs/datasets.yaml')
-    save_dir = './VITONGEN'
+    save_dir = '/content/drive/MyDrive/anydoor_output/VITONGEN'
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
 
