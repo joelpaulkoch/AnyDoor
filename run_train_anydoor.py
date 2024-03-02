@@ -63,7 +63,7 @@ threed_data = [] # [dataset5]
 # The ratio of each dataset is adjusted by setting the __len__ 
 # dataset = ConcatDataset( image_data + video_data + tryon_data +  threed_data + video_data + tryon_data +  threed_data  )
 from datasets import load_dataset
-dataset = load_dataset("forgeml/viton_hd")
+dataset = load_dataset("forgeml/viton_hd", split="train")
 dataset = dataset.with_format("torch")
 dataloader = DataLoader(dataset, num_workers=8, batch_size=batch_size, shuffle=True)
 logger = ImageLogger(batch_frequency=logger_freq)
