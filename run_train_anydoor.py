@@ -64,9 +64,10 @@ threed_data = [] # [dataset5]
 # dataset = ConcatDataset( image_data + video_data + tryon_data +  threed_data + video_data + tryon_data +  threed_data  )
 from datasets import load_dataset
 dataset = load_dataset("forgeml/viton_hd")
+dataset = dataset.with_format("torch")
 dataloader = DataLoader(dataset, num_workers=8, batch_size=batch_size, shuffle=True)
 logger = ImageLogger(batch_frequency=logger_freq)
-trainer = pl.Trainer(gpus=n_gpus, strategy="ddp", precision=16, accelerator="gpu", callbacks=[logger], progress_bar_refresh_rate=1, accumulate_grad_batches=accumulate_grad_batches)
+trainer = pl.Trainer(strategy="ddp", precision=16, accelerator="gpu", callbacks=[logger], accumulate_grad_batches=accumulate_grad_batches)
 
 # Train!
 trainer.fit(model, dataloader)
