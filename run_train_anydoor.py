@@ -65,16 +65,20 @@ threed_data = [] # [dataset5]
 from datasets import load_dataset
 dataset = load_dataset("forgeml/viton_hd", split="train")
 dataset = dataset.with_format("torch")
+dataset = ConcatDataset(dataset)
+
+print("not here")
 dataloader = DataLoader(dataset, num_workers=8, batch_size=batch_size, shuffle=True)
 logger = ImageLogger(batch_frequency=logger_freq)
+# enable_checkpointing
 trainer = pl.Trainer(strategy="ddp", precision=16, accelerator="gpu", callbacks=[logger], accumulate_grad_batches=accumulate_grad_batches)
 
 # Train!
 trainer.fit(model, dataloader)
 
-state = get_state_dict(model)
+# state = get_state_dict(model)
 
-import torch
-from safetensors.torch import save_file
+# import torch
+# from safetensors.torch import save_file
 
-save_file(state, "/content/finetuned.safetensors")
+# save_file(state, "/content/finetuned.safetensors")
